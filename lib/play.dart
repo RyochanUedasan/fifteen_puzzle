@@ -34,6 +34,9 @@ class _PlayState extends State<Play> {
   }
 
   void onTileMoved(int from, int to) {
+    if (game.completed()) {
+      return;
+    }
     game.swap(from, to);
     setState(() {
       game.incrementMoveCount();
