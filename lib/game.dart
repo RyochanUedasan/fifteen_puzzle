@@ -1,7 +1,10 @@
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/iterables.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'grid.dart';
 import 'tile.dart';
@@ -131,6 +134,35 @@ class _GameState extends State<Game> {
           const SizedBox(height: 32),
         ],
       ),
+      bottomSheet: kIsWeb
+          ? Container(
+              height: 32,
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              alignment: Alignment.center,
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Built with Flutter. ',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    TextSpan(
+                      text: 'GitHub',
+                      style: const TextStyle(color: Colors.blue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launchUrl(
+                            Uri.parse(
+                              "https://github.com/RyochanUedasan/fifteen_puzzle",
+                            ),
+                          );
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : null,
     );
   }
 }

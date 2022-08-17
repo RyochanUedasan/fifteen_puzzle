@@ -6,6 +6,6 @@ void main() {
   testWidgets('shows initial score', (WidgetTester tester) async {
     await tester.pumpWidget(const MaterialApp(home: Game()));
 
-    expect(find.text('Score: 0'), findsOneWidget);
+    expect(find.text('Moves: 0'), findsOneWidget);
   });
 }
