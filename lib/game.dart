@@ -17,13 +17,14 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  final gridSize = 4;
+  int gridSize = 4;
   late int moveCount;
   late List<Tile> tiles;
   late List<int> answer;
   late List<int> answer2;
 
-  void initialize() {
+  void initialize({int? gSize}) {
+    if (gSize != null) gridSize = gSize;
     moveCount = 0;
     tiles = generateShuffledTiles();
     answer = List.generate(gridSize * gridSize, (i) => i);
@@ -93,7 +94,29 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('15 Puzzle')),
+      appBar: AppBar(
+        title: DropdownButton(
+          value: gridSize,
+          focusColor: Colors.transparent,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.bold),
+          onChanged: (int? newValue) {
+            setState(() {
+              initialize(gSize: newValue!);
+            });
+          },
+          items: [3, 4]
+              .map(
+                (i) => DropdownMenuItem<int>(
+                  value: i,
+                  child: Text("${i * i - 1} Puzzle"),
+                ),
+              )
+              .toList(),
+        ),
+      ),
       body: Column(
         children: [
           const SizedBox(height: 32),
