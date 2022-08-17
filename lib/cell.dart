@@ -14,10 +14,10 @@ class Cell extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.all(2.0),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 2.0),
+          border: Border.all(color: Colors.grey, width: 0.5),
         ),
-        alignment: Alignment.center,
         child: tile,
       ),
     );
