@@ -34,10 +34,7 @@ class Grid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2.0),
-      ),
+    return SizedBox(
       height: width,
       width: width,
       child: Column(
