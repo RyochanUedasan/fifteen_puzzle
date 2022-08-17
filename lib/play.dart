@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'grid.dart';
@@ -16,12 +17,20 @@ class Play extends StatefulWidget {
 }
 
 class _PlayState extends State<Play> {
+  late TextEditingController controller;
   late Game game;
 
   @override
   void initState() {
     super.initState();
     game = Game();
+    controller = TextEditingController(text: '5555');
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   void onTileMoved(int from, int to) {
@@ -57,6 +66,45 @@ class _PlayState extends State<Play> {
     );
   }
 
+  Widget newGameForm() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Spacer(),
+        SizedBox(
+          width: 64,
+          child: TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            maxLength: 5,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              labelText: 'seed',
+              counterText: '',
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        OutlinedButton(
+          onPressed: () {
+            setState(() {
+              game = Game(
+                gridSize: game.gridSize,
+                seed: int.tryParse(controller.text),
+              );
+            });
+          },
+          child: Text(
+            "New",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        const Spacer(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,45 +131,32 @@ class _PlayState extends State<Play> {
               .toList(),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 32),
-          scoreBoard(),
-          Expanded(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Builder(builder: (context) {
-                  final mediaQuerySize = MediaQuery.of(context).size;
-                  return Grid(
-                    width: math.min(
-                      mediaQuerySize.height,
-                      mediaQuerySize.width,
-                    ),
-                    gridSize: game.gridSize,
-                    tiles: game.tiles,
-                    onTileMoved: onTileMoved,
-                  );
-                }),
-              ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            const SizedBox(height: 32),
+            scoreBoard(),
+            const SizedBox(height: 16),
+            Expanded(
+              child: Builder(builder: (context) {
+                final mediaQuerySize = MediaQuery.of(context).size;
+                return Grid(
+                  width: math.min(
+                    mediaQuerySize.height,
+                    mediaQuerySize.width,
+                  ),
+                  gridSize: game.gridSize,
+                  tiles: game.tiles,
+                  onTileMoved: onTileMoved,
+                );
+              }),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: OutlinedButton(
-              onPressed: () {
-                setState(() {
-                  game = Game();
-                });
-              },
-              child: Text(
-                "Reset",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
-        ],
+            const SizedBox(height: 16),
+            newGameForm(),
+            const SizedBox(height: 32),
+          ],
+        ),
       ),
       bottomSheet: kIsWeb
           ? Container(

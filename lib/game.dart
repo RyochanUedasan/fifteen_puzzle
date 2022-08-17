@@ -1,17 +1,21 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'tile.dart';
 
 class Game {
   static const availableGridSizes = [3, 4];
   final int gridSize;
+  final int? seed;
   final List<Tile> tiles;
   int moveCount = 0;
 
-  Game({this.gridSize = 4}) : tiles = generateShuffledTiles(gridSize);
+  Game({this.gridSize = 4, this.seed = 5555})
+      : tiles = generateShuffledTiles(gridSize, seed);
 
-  static List<Tile> generateShuffledTiles(int gridSize) {
+  static List<Tile> generateShuffledTiles(int gridSize, int? seed) {
     final tiles = List.generate(gridSize * gridSize, (i) => Tile(number: i));
-    tiles.shuffle();
+    tiles.shuffle(Random(seed));
     return tiles;
   }
 
