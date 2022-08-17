@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'game.dart';
+import 'play.dart';
 
 class FifteenPuzzle extends StatelessWidget {
   const FifteenPuzzle({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class FifteenPuzzle extends StatelessWidget {
     return MaterialApp(
       title: '15 Puzzle',
       theme: ThemeData(primarySwatch: Colors.grey),
-      home: const Game(),
+      home: const Play(),
     );
   }
 }
