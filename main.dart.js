@@ -28464,7 +28464,7 @@ q=A.a7S(s,r)
 A.pA(s,!0).nI(A.a76(null,B.q,!0,null,new A.Ue(p),s,null,q,!0,t.z))}},
 L(a,b){var s=this,r=null,q=A.d(s.e,"moveCount"),p=s.c
 p.toString
-return new A.qF(new A.nH(B.ET,new A.Da(r,r,1/0,56),r),A.YA(A.a([B.r4,A.vw(A.Rr("Score: "+A.e(q),A.az(p).R8.e),r,r),A.YJ(A.vw(new A.cO(B.k4,new A.fW(new A.U6(s),r),r),r,r)),new A.cO(B.k4,new A.xP(new A.U7(s),r,r,r,r,B.z,r,!1,A.Rr("Reset",A.az(b).R8.r),r),r),B.r4],t.E),B.cl,B.bS,B.cU),r)}}
+return new A.qF(new A.nH(B.ET,new A.Da(r,r,1/0,56),r),A.YA(A.a([B.r4,A.vw(A.Rr("Moves: "+A.e(q),A.az(p).R8.e),r,r),A.YJ(A.vw(new A.cO(B.k4,new A.fW(new A.U6(s),r),r),r,r)),new A.cO(B.k4,new A.xP(new A.U7(s),r,r,r,r,B.z,r,!1,A.Rr("Reset",A.az(b).R8.r),r),r),B.r4],t.E),B.cl,B.bS,B.cU),r)}}
 A.U8.prototype={
 $1(a){return a.c},
 $S:71}
@@ -28485,7 +28485,7 @@ s.e=A.d(s.e,"moveCount")+1},
 $S:0}
 A.Ue.prototype={
 $1(a){var s=null
-return new A.kT(B.EV,A.Rr("Your score is: "+A.e(A.d(this.a.e,"moveCount")),s),A.a([new A.zE(new A.Uc(a),s,s,s,s,B.z,s,!1,B.EU,s)],t.E),s)},
+return new A.kT(B.EV,A.Rr("Your moves: "+A.e(A.d(this.a.e,"moveCount")),s),A.a([new A.zE(new A.Uc(a),s,s,s,s,B.z,s,!1,B.EU,s)],t.E),s)},
 $S:107}
 A.Uc.prototype={
 $0(){A.pA(this.a,!1).dP(0)},
