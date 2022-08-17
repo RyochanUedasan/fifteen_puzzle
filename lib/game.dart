@@ -64,7 +64,7 @@ class _GameState extends State<Game> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text("Completed!"),
-          content: Text("Your score is: $moveCount"),
+          content: Text("Your moves: $moveCount"),
           actions: [
             TextButton(
               onPressed: () {
@@ -81,7 +81,7 @@ class _GameState extends State<Game> {
   Widget scoreBoard() {
     return Center(
       child: Text(
-        "Score: $moveCount",
+        "Moves: $moveCount",
         style: Theme.of(context).textTheme.headlineMedium,
       ),
     );
