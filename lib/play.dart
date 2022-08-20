@@ -33,39 +33,68 @@ class _PlayState extends State<Play> {
     super.dispose();
   }
 
+  void showCompletedDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Completed!"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                "Score",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text("Moves: ${game.moveCount}"),
+            Text("Time: ${game.playtime()}")
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Back'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void onTileMoved(int from, int to) {
     if (game.completed()) {
       return;
+    }
+    if (game.firstMove()) {
+      game.startCountingPlaytime();
     }
     game.swap(from, to);
     setState(() {
       game.incrementMoveCount();
     });
     if (game.completed()) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text("Completed!"),
-          content: Text("Your moves: ${game.moveCount}"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Back'),
-            ),
-          ],
-        ),
-      );
+      game.stopCountingPlaytime();
+      showCompletedDialog();
     }
   }
 
   Widget scoreBoard() {
-    return Center(
-      child: Text(
-        "Moves: ${game.moveCount}",
-        style: Theme.of(context).textTheme.headlineMedium,
-      ),
+    return Column(
+      children: [
+        Text(
+          "Moves: ${game.moveCount}",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const SizedBox(height: 8.0),
+        AnimatedBuilder(
+          animation: game.playtimeCounter,
+          builder: (_, __) => Text("Time: ${game.playtime()}"),
+        )
+      ],
     );
   }
 
