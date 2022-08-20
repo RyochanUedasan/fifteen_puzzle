@@ -58,14 +58,14 @@ class Game {
   }
 
   bool completed() {
-    List<int> target;
-    if (tiles.first.whitespace) {
-      target = tiles.map((t) => t.number).toList().sublist(1);
-    } else if (tiles.last.whitespace) {
-      target = tiles.map((t) => t.number).toList().sublist(0, tiles.length - 1);
-    } else {
+    if (!tiles.last.whitespace) {
       return false;
     }
-    return target.isSorted((a, b) => a.compareTo(b));
+
+    /// Returns `true` if all tiles except the last are in ascending order.
+    return tiles
+        .sublist(0, tiles.length - 1)
+        .map((t) => t.number)
+        .isSorted((a, b) => a.compareTo(b));
   }
 }
